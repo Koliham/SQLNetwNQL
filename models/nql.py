@@ -138,7 +138,7 @@ class NQL:
 
     @staticmethod
     def frominl(inlstring : str):
-        from nqlmodel import inltoobj
+        from models import inltoobj
         sqlobj = inltoobj.inltosqlobj(inlstring)
         return sqlobj
 

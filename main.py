@@ -10,7 +10,7 @@ import pandas as pd
 import json
 from collections import OrderedDict
 from importlib import reload
-from sqlnet.suggcreator import create_suggestions
+from sqlnet.suggcreator import create_suggestions,parse_nql
 # os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = "D:/Programme/Anaconda3/Library/plugins/platforms"
 
 import torch
@@ -144,8 +144,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         filltable(self.df,self.ui.tableWidget)
         filltablelist(self.tables,self.ui.listTables)
         self.ui.listTables.itemClicked.connect(self.tableclicked)
+        self.ui.listTables.item(0).setSelected(True)
+        self.tableclicked(self.ui.listTables.item(0))
         self.ui.listvorschlaege.itemClicked.connect(self.suggestionclicked)
         self.ui.btnConvert.clicked.connect(self.processinput)
+        self.ui.btnRunNQL.clicked.connect(lambda : self.ui.txtResultDSL.setText(str(parse_nql(self.ui.textNQL.toPlainText(),self.currenttable))))
 
 
     def tableclicked(self,item):

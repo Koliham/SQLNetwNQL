@@ -63,6 +63,16 @@
          <widget class="QTextEdit" name="txtNL"/>
         </item>
         <item>
+         <widget class="QPushButton" name="btnConvert">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string>Parse NL input</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
            <string>List of possible answers</string>
@@ -86,9 +96,29 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Direct NQL input</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textNQL"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnRunNQL">
+          <property name="text">
+           <string>Run NQL Query</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>Resulting SQL/NQL</string>
+           <string>Result</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -101,16 +131,6 @@
        </layout>
       </item>
      </layout>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="btnConvert">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Convert to DSL</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>

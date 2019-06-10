@@ -311,6 +311,14 @@ class SQLNet(nn.Module):
 
     def gen_query(self, score, q, col, raw_q, raw_col,
             pred_entry, reinforce=False, verbose=False):
+
+        def merge_tokens_v2(tok_list):
+            if len(tok_list)==1:
+                return tok_list[0]
+            else:
+                return " ".join(tok_list)
+
+
         def merge_tokens(tok_list, raw_tok_str):
             tok_str = raw_tok_str.lower()
             alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789$('
@@ -456,7 +464,8 @@ class SQLNet(nn.Module):
 
                         for jj in range(textstringnum):
                             conelement = list(cur_cond)
-                            strvariant = merge_tokens(strteile[jj], raw_q[b])
+                            strvariant = merge_tokens(strteile[jj], raw_q[b]) # sucks!
+                            strvariant = merge_tokens_v2(strteile[jj])
                             conelement.append(strvariant)
                             if strvariant != "": condblock[bid][jj].append(conelement)
 
