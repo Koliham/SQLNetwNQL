@@ -23,7 +23,7 @@ def create_suggestions(model,txtstring,tableinfo):
     col_num = len(tableinfo["header"])
     raw_q_seq = txtstring
     raw_col_seq = tableinfo["header"]
-    gt_sel_seq = 0
+    gt_sel_seq = random.randint(0,col_num-1)
 
     #convert to 2-array
     q_seq = [q_seq,q_seq]
