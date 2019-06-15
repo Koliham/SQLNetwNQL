@@ -160,6 +160,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def suggestionclicked(self,item):
         tname = item.text()
+        self.ui.textNQL.setText(tname)
         wert = self.result[tname]
         self.ui.txtResultDSL.setText(str(wert))
 

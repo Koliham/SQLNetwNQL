@@ -1,20 +1,16 @@
 from models.selectstate import SelectState
 from models.wherestate import WhereState
 from models.orderstate import OrderState
+from nldslfuncs import wordsimilarity
 # from nldslfuncs.reader import inltoobj
 from moz_sql_parser import parse
 import numpy as np
 
-def findsimilarindex(value : str, entries : list, threshold = 0.0):
-    if value in entries:
-        return entries.index(value)
-    else:
-        return -1
-
+VERBOSE = True
 class NQL:
 
     def __init__(self):
-        self.selstate = SelectState()
+        self.selstate = SelectState(VERBOSE)
         self.wherestate = WhereState()
         self.orderstate = OrderState()
         self.entity = "flight"  # maybe not needed
@@ -103,7 +99,7 @@ class NQL:
         # -----SELECT STATEMENT COLUMNS
         selcols = []
         for selcol in self.selstate.selcols: # for each column for select statement
-            if findsimilarindex(selcol,self.wikisqltableschema["header"]) !=-1: # check if is in the list of table schema columns
+            if wordsimilarity.findsimilarindex(selcol,self.wikisqltableschema["header"]) !=-1: # check if is in the list of table schema columns
                 pos = self.wikisqltableschema["header"].index(selcol) # add the position to the sel cols
                 selcols.append(pos)
         if len(selcols) == 1: #most of the cases there is just one column being selected
@@ -126,7 +122,7 @@ class NQL:
             ref = cond[0] # e.g. price
             op = cond[1] # e.g. <
             value = cond[2] # e.g. 500
-            if findsimilarindex(ref,self.wikisqltableschema["header"]) !=-1 : #column must be in the list of schema columns
+            if wordsimilarity.findsimilarindex(ref,self.wikisqltableschema["header"]) !=-1 : #column must be in the list of schema columns
                 colindex = self.wikisqltableschema["header"].index(ref)
             else: # if not, nothing can be done, maybe
                 continue
@@ -137,9 +133,9 @@ class NQL:
         return result
 
     @staticmethod
-    def frominl(inlstring : str):
+    def frominl(inlstring : str,verbose=VERBOSE):
         from models import inltoobj
-        sqlobj = inltoobj.inltosqlobj(inlstring)
+        sqlobj = inltoobj.inltosqlobj(inlstring,verbose=verbose)
         return sqlobj
 
     @classmethod

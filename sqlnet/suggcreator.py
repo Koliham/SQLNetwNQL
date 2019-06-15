@@ -12,6 +12,7 @@ def create_suggestions(model,txtstring,tableinfo):
     engine = DBEngine("data/test.db")
     tid = tableinfo["id"]
     q_seq = txtstring.split(" ")
+    # q_seq = re.findall(r"[ ']",txtstring)
     if "header_tok" in tableinfo.keys():
         col_seq = tableinfo["header_tok"]
     else:

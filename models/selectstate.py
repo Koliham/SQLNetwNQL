@@ -2,8 +2,6 @@ from models.column import Column
 from pattern.text.en import inflect
 
 from nltk.stem import WordNetLemmatizer
-
-
 def isplural(word):
     wnl = WordNetLemmatizer()
     lemma = wnl.lemmatize(word, 'n')
@@ -15,11 +13,11 @@ class SelectState:
     aggwords = {"sum of all": "SUM", "average": "AVG", "lowest": "MIN", "highest": "MAX"}
     aggwords_inl = {"SUM": "sum of all","AVG": "average","MIN": "lowest" ,"MAX" :"highest" }
 
-    def __init__(self):
+    def __init__(self,verbosity=False):
         self.selcols = []
         self.entity = "table"
         self.agg = ""
-
+        self.VERBOSE = verbosity
     def __str__(self):
         output = "SELECT "
 
@@ -53,13 +51,13 @@ class SelectState:
         #case for counting:
         if self.agg=="COUNT":
             if len(columns) == 1 and (self.entity != "" and columns[0] == self.entity):
-                if self.entity[-1]=="s": #it must be already plural?
+                if self.entity[-1]=="s" or self.VERBOSE: #it must be already plural?
                     return count_start+self.entity+count_end
                 else:
                     return count_start+inflect.pluralize(self.entity)+count_end
             elif len(columns)==1:
-                if columns[0][-1]=="s": #it must be already plural?
-                    return count_start+self.entity+count_end
+                if columns[0][-1]=="s" or self.VERBOSE: #it must be already plural?
+                    return count_start+str(columns[0])+count_end
                 else:
                     return count_start+inflect.pluralize(columns[0])+count_end
 
@@ -74,7 +72,7 @@ class SelectState:
                 #special case for SUM: I have to use plural: example: "sum of all prices" instead of "sum of all price"
                 if self.agg =="SUM":
                     plurayesno, singular = isplural(colname)
-                    if not plurayesno:
+                    if not plurayesno and not self.VERBOSE:
                         colname = inflect.pluralize(colname)
 
                 output += aggregation + " " + colname

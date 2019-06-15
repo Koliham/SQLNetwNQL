@@ -35,7 +35,7 @@ def relationtranslate(self, rel):
         return "is"
 
 
-def _inltosql(input: list, context:Context = None):
+def _inltosql(input: list, context:Context = None,verbose=False):
 
     # return SQL Object
     stopwords = getstopwords()
@@ -98,8 +98,11 @@ def _inltosql(input: list, context:Context = None):
             if aggmatch:
                 continue
 
-            plurayesno, singular = isplural(wort)
-            selcols.append(singular)
+            if verbose:
+                selcols.append(wort)
+            else:
+                plurayesno, singular = isplural(wort)
+                selcols.append(singular)
 
         if state=="count":
             if countdone:
@@ -109,8 +112,12 @@ def _inltosql(input: list, context:Context = None):
             sqlstate.selstate.count = True
             sqlstate.selstate.agg = "COUNT"
             #for count, the name of the column is usually in plural, but the column is singular
-            plurayesno, singular = isplural(wort)
-            selcols.append(singular)
+            if verbose:
+                selcols.append(wort)
+            else:
+                plurayesno, singular = isplural(wort)
+                selcols.append(singular)
+
             countdone = True
 
         if state=="where":
@@ -166,10 +173,10 @@ def inltoSQLstatement(input : str, context : Context = None):
     return sqlobj.sql()
 
 
-def inltosqlobj(input : str, context: Context = None):
+def inltosqlobj(input : str, context: Context = None,verbose=False):
     input_cleaned = preprocessor.preprocessnl(input)
     #look for the word show
     wordlist = preprocessor.stringtolist(input_cleaned)
     # if any("show" in x for x in input if type(x)==str):
-    sqlob : NQL = _inltosql(wordlist, context)
+    sqlob : NQL = _inltosql(wordlist, context,verbose=verbose)
     return sqlob
