@@ -381,7 +381,7 @@ class SQLNet(nn.Module):
                 # ----
             if pred_sel:
                 cur_query['sel'] = np.argmax(sel_score[b].data.cpu().numpy())
-                cur_arglist['sel'] = np.argsort(sel_score[b].data.cpu().numpy())[0:2] # Mehmet
+                cur_arglist['sel'] = np.argsort(-sel_score[b].data.cpu().numpy())[0:2] # Mehmet
             if pred_cond:
                 cur_query['conds'] = []
 

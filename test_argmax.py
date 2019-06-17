@@ -33,7 +33,7 @@ if __name__ == '__main__':
     else:
         USE_SMALL=False
         GPU=True
-        BATCH_SIZE=64 # TODO: Back to 64
+        BATCH_SIZE=32 # TODO: Back to 64
     TEST_ENTRY=(True, True, True)  # (AGG, SEL, COND)
 
     sql_data, table_data, val_sql_data, val_table_data, \
