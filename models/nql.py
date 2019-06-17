@@ -146,18 +146,21 @@ class NQL:
         obj = cls()
         #selstate columns
         # if there is just one column to be selected, then the key 'select' doesnt have a list with one dictionary, but just the dictionary:
-        if type(sqldict["select"])==dict:
-            sqldict["select"] = [sqldict["select"]]
-        for e in sqldict["select"]:
-            v = e["value"]
-            if type(v) == dict: # in cases, when there is an aggregator like {'value': {'max': 'price'}}
-                agg = [*v][0] #get the first (and only key) which is also the aggregator
-                col = v[agg]
-                obj.selstate.selcols.append(col)
-                obj.selstate.agg = agg.upper()
-                # the specification just allows one column, when an aggregator is used, therefore the break
-                break
-            obj.selstate.selcols.append(v)
+        if type(sqldict["select"])==str and sqldict["select"]=="*":
+            obj.selstate.selcols.append(sqldict["from"])
+        else:
+            if type(sqldict["select"])==dict:
+                sqldict["select"] = [sqldict["select"]]
+            for e in sqldict["select"]:
+                v = e["value"]
+                if type(v) == dict: # in cases, when there is an aggregator like {'value': {'max': 'price'}}
+                    agg = [*v][0] #get the first (and only key) which is also the aggregator
+                    col = v[agg]
+                    obj.selstate.selcols.append(col)
+                    obj.selstate.agg = agg.upper()
+                    # the specification just allows one column, when an aggregator is used, therefore the break
+                    break
+                obj.selstate.selcols.append(v)
         # table name:
         obj.entity = sqldict["from"]
         obj.selstate.entity = sqldict["from"]
