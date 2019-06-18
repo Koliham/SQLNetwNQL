@@ -60,7 +60,13 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="txtNL"/>
+         <widget class="QTextEdit" name="txtNL">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="btnConvert">
@@ -106,7 +112,13 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textNQL"/>
+         <widget class="QTextEdit" name="textNQL">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="btnRunNQL">
@@ -126,7 +138,13 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="txtResultDSL"/>
+         <widget class="QTextEdit" name="txtResultDSL">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
