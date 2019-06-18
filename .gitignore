@@ -1,9 +1,4 @@
 .*.swp
 .*.swo
 *.pyc
-*.json
-*.jsonl
-*.db
-glove/*
-saved_model/*
 !saved_model/.keep
