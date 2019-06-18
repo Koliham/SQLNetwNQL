@@ -20,4 +20,5 @@ SQLNet uses Pytorch, so CUDA/cudnn is needed to be installed. For this, please v
 ```bash
 python main.py
 ```
-After a few seconds the GUI should be visible.
+After a few seconds the GUI should be visible:
+![alt text](https://raw.githubusercontent.com/Koliham/SQLNetwNQL/master/nqlpred.png?token=ABZXRBDFDLSXWJFVS7X42K25BD2EC)
