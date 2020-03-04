@@ -37,7 +37,7 @@ N_word = 300
 B_word = 42
 
 USE_SMALL = False
-GPU = True
+GPU = False
 BATCH_SIZE = 2  # TODO: Back to 64
 TEST_ENTRY = (True, True, True)  # (AGG, SEL, COND)
 
@@ -70,11 +70,16 @@ if train_emb:
 else:
     agg_m, sel_m, cond_m = best_model_name(args)
     print("Loading from %s" % agg_m)
-    model.agg_pred.load_state_dict(torch.load(agg_m))
-    print("Loading from %s" % sel_m)
-    model.sel_pred.load_state_dict(torch.load(sel_m))
-    print("Loading from %s" % cond_m)
-    model.cond_pred.load_state_dict(torch.load(cond_m))
+    if GPU:
+        model.agg_pred.load_state_dict(torch.load(agg_m))
+        model.sel_pred.load_state_dict(torch.load(sel_m))
+        model.cond_pred.load_state_dict(torch.load(cond_m))
+    else:
+        model.agg_pred.load_state_dict(torch.load(agg_m, map_location = torch.device('cpu')))
+        model.sel_pred.load_state_dict(torch.load(sel_m, map_location = torch.device('cpu')))
+        model.cond_pred.load_state_dict(torch.load(cond_m, map_location = torch.device('cpu')))
+        print("Loading from %s" % sel_m)
+        print("Loading from %s" % cond_m)
 
 
 
