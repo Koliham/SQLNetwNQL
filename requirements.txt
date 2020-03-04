@@ -19,7 +19,7 @@ mkl-fft==1.0.12
 mkl-random==1.0.2
 mo-future==2.46.19127
 moz-sql-parser==2.44.19084
-nltk==3.4.3
+nltk==3.4.5
 numpy==1.16.4
 odfpy==1.4.0
 openpyxl==2.4.11
