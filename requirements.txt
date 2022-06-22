@@ -20,7 +20,7 @@ mkl-random==1.0.2
 mo-future==2.46.19127
 moz-sql-parser==2.44.19084
 nltk==3.4.3
-numpy==1.16.4
+numpy==1.22.0
 odfpy==1.4.0
 openpyxl==2.4.11
 pandas==0.24.2
